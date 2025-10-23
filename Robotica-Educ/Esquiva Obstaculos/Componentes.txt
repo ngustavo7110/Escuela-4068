@@ -1,0 +1,10 @@
+Componentes
+-----------------------
+Arduino Nano
+Puente H L298N
+Motores x4
+Sensor Ultrasónico
+Servomotor
+Chasis para auto/carro
+Bateria x2
+Cables

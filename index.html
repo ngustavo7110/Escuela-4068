@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proyectos con Arduino Uno · Escuela 4068</title>
+<meta name="description" content="Proyectos prácticos con Arduino Uno para aprender electrónica y programación paso a paso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papel:#eef3f1; --tinta:#10302f; --suave:#4a6564; --linea:#c5d4d0;
+  --teal:#00797f; --led:#f2b134; --led-off:#d9c6a0;
+  --titulo:"Bricolage Grotesque","Trebuchet MS",sans-serif;
+  --texto:"IBM Plex Sans",system-ui,sans-serif;
+  --codigo:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--papel);color:var(--tinta);font:400 1.05rem/1.6 var(--texto)}
+a{color:var(--teal)}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.wrap{max-width:860px;margin:0 auto;padding:0 1.25rem}
+
+/* Hero */
+header{background:var(--tinta);color:var(--papel);padding:3.5rem 0 3rem}
+header .wrap{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center}
+h1{font:800 clamp(2.3rem,6vw,3.8rem)/1.02 var(--titulo);margin:0 0 1rem;letter-spacing:-.02em}
+header p{margin:0;max-width:34ch;color:#bcd0cc}
+.escuela{font:500 .95rem var(--texto);color:#8fb0aa;margin-bottom:1rem}
+.placa{display:flex;flex-direction:column;align-items:center;gap:.7rem}
+.led{width:84px;height:84px;border-radius:50%;background:#7a3836;border:6px solid #f4f7f6;
+  box-shadow:0 0 0 0 rgba(229,50,45,0);transition:background .15s,box-shadow .15s}
+.led.on{background:#e5322d;box-shadow:0 0 46px 14px rgba(229,50,45,.6)}
+.pin{font:400 .85rem var(--codigo);color:#8fb0aa;text-align:center}
+.pin b{color:#ff8a82;font-weight:400}
+button{font:500 .95rem var(--texto);background:transparent;color:var(--papel);border:2px solid #8fb0aa;
+  padding:.45rem 1rem;border-radius:4px;cursor:pointer}
+button:hover{border-color:var(--led);color:var(--led)}
+
+/* Secciones */
+section{padding:3rem 0 1rem}
+h2{font:800 1.7rem/1.15 var(--titulo);margin:0 0 .5rem;letter-spacing:-.01em}
+.intro{color:var(--suave);margin:0 0 1.5rem;max-width:60ch}
+.materiales{columns:2;column-gap:2rem;padding-left:1.1rem;margin:0}
+.materiales li{margin-bottom:.3rem}
+
+/* Proyectos */
+.proyectos{border-top:2px solid var(--tinta)}
+details{border-bottom:1px solid var(--linea)}
+summary{list-style:none;cursor:pointer;padding:1.1rem 0;display:grid;grid-template-columns:1fr auto;gap:.2rem 1rem;align-items:baseline}
+summary::-webkit-details-marker{display:none}
+summary h3{font:600 1.25rem var(--titulo);margin:0}
+summary span{color:var(--suave);font-size:.95rem;grid-column:1}
+.nivel{grid-column:2;grid-row:1/3;font:500 .9rem var(--texto);color:var(--teal);white-space:nowrap}
+summary::after{content:"";display:none}
+details[open] summary h3{color:var(--teal)}
+.cuerpo{padding:0 0 1.5rem}
+.cuerpo p{margin:.2rem 0 .8rem}
+.cuerpo strong{font-weight:500}
+pre{margin:0;background:var(--tinta);color:#e3efec;padding:1rem 1.1rem;border-radius:4px;overflow-x:auto;
+  font:400 .88rem/1.55 var(--codigo)}
+
+.cuerpo h4{font:600 1rem var(--titulo);margin:1.1rem 0 .5rem;color:var(--teal)}
+footer{margin-top:3rem;padding:1.5rem 0 2.5rem;border-top:1px solid var(--linea);color:var(--suave);font-size:.95rem}
+
+@media (max-width:640px){
+  header .wrap{grid-template-columns:1fr}
+  .placa{align-items:flex-start;flex-direction:row;gap:1rem}
+  .materiales{columns:1}
+}
+
+/* Navegación */
+nav{margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem}
+nav a{color:var(--papel);text-decoration:none;border-bottom:2px solid #3f6662;padding-bottom:2px;font-weight:500;font-size:.95rem}
+nav a:hover{border-color:var(--led)}
+
+/* Documentos */
+.docs{list-style:none;margin:0;padding:0;border-top:2px solid var(--tinta)}
+.docs li{border-bottom:1px solid var(--linea);padding:.9rem 0;display:grid;grid-template-columns:1fr auto;gap:.1rem 1rem;align-items:baseline}
+.docs a{font:600 1.1rem var(--titulo);text-decoration:none}
+.docs a:hover{text-decoration:underline}
+.docs span{color:var(--suave);font-size:.95rem;grid-column:1}
+.docs .tipo{grid-column:2;grid-row:1/3;font:400 .85rem var(--codigo);color:var(--teal)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div>
+      <div class="escuela">Escuela 4068</div>
+      <h1>Proyectos con Arduino Uno</h1>
+      <p>Proyectos de electrónica y robótica educativa con Arduino Uno.</p>
+      <nav aria-label="Secciones">
+        <a href="#materiales">Materiales</a>
+        <a href="#robotica">Proyectos de Robótica Educativa</a>
+        <a href="#manuales">Manuales y Documentos</a>
+        <a href="#otros">Otros Proyectos Arduino</a>
+      </nav>
+    </div>
+    <div class="placa" aria-live="polite">
+      <div class="led" id="led" role="img" aria-label="LED del pin 13"></div>
+      <div class="pin">pin <b>13</b><br><span id="estado">LOW</span></div>
+      <button id="toggle" type="button">Pausar</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="materiales">
+    <h2>Qué necesitas</h2>
+    <p class="intro">Este kit básico sirve de base para los proyectos de la página.</p>
+    <ul class="materiales">
+      <li>Placa Arduino Uno y cable USB</li>
+      <li>Protoboard</li>
+      <li>Cables macho-macho</li>
+      <li>LED rojo, amarillo y verde</li>
+      <li>Resistencias de 220 Ω</li>
+      <li>Sensor ultrasónico HC-SR04</li>
+      <li>Sensor de temperatura LM35</li>
+      <li>Servomotor SG90</li>
+      <li>Potenciómetro de 10 kΩ</li>
+      <li>Zumbador (buzzer)</li>
+      <li>Pulsador</li>
+      <li>Puente H L-298N</li>
+      <li>Arduino IDE instalado</li>
+    </ul>
+  </section>
+
+  <section id="robotica">
+    <h2>Proyectos de Robótica Educativa</h2>
+    <p class="intro">Toca un proyecto para ver su carpeta y el código utilizado.</p>
+    <div class="proyectos">
+
+      <details>
+        <summary>
+          <h3>Esquiva Obstáculos</h3>
+          <span>Archivos y código del proyecto en GitHub.</span>
+        </summary>
+        <div class="cuerpo">
+          <p><a href="https://github.com/ngustavo7110/Escuela-4068/tree/main/Robotica-Educ/Esquiva%20Obstaculos" target="_blank" rel="noopener">Abrir la carpeta del proyecto en GitHub</a></p>
+          <h4>Código utilizado</h4>
+          <p><a href="https://github.com/ngustavo7110/Escuela-4068/blob/main/Robotica-Educ/Esquiva%20Obstaculos/Auto-Evita-Obstaculos.ino" target="_blank" rel="noopener">Auto-Evita-Obstaculos.ino</a></p>
+          <h4>Ver Proyecto en pdf</h4>
+          <p><a href="https://github.com/ngustavo7110/Escuela-4068/blob/main/Robotica-Educ/Esquiva%20Obstaculos/Rover-esquiva-obst%C3%A1culos.pdf" target="_blank" rel="noopener">Rover-esquiva-obstáculos.pdf</a></p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <h3>Proyecto Basurín</h3>
+          <span>Archivos y código del proyecto en GitHub.</span>
+        </summary>
+        <div class="cuerpo">
+          <p><a href="https://github.com/ngustavo7110/Escuela-4068/tree/main/Robotica-Educ/Proyecto-Basurin" target="_blank" rel="noopener">Abrir la carpeta del proyecto en GitHub</a></p>
+          <h4>Código utilizado</h4>
+          <p><a href="https://github.com/ngustavo7110/Escuela-4068/blob/main/Robotica-Educ/Proyecto-Basurin/Basurin-Lcd-contador-Ok.ino" target="_blank" rel="noopener">Basurin-Lcd-contador-Ok.ino</a></p>
+          <h4>Ver Proyecto en pdf</h4>
+          <p><a href="https://github.com/ngustavo7110/Escuela-4068/blob/main/Robotica-Educ/Proyecto-Basurin/Basurin%20Basurin.pdf" target="_blank" rel="noopener">Basurin Basurin.pdf</a></p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <h3>Proyecto Rover</h3>
+          <span>Archivos y código del proyecto en GitHub.</span>
+        </summary>
+        <div class="cuerpo">
+          <p><a href="https://github.com/ngustavo7110/Escuela-4068/tree/main/Robotica-Educ/Proyecto-Rover" target="_blank" rel="noopener">Abrir la carpeta del proyecto en GitHub</a></p>
+          <h4>Código utilizado</h4>
+          <p><a href="https://github.com/ngustavo7110/Escuela-4068/blob/main/Robotica-Educ/Proyecto-Rover/RoverPiso-Bluetooth.ino" target="_blank" rel="noopener">RoverPiso-Bluetooth.ino</a></p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <h3>Proyecto Sistema de Riego</h3>
+          <span>Archivos y código del proyecto en GitHub.</span>
+        </summary>
+        <div class="cuerpo">
+          <p><a href="https://github.com/ngustavo7110/Escuela-4068/tree/main/Robotica-Educ/Proyecto-Sistema-Riego" target="_blank" rel="noopener">Abrir la carpeta del proyecto en GitHub</a></p>
+          <h4>Código utilizado</h4>
+          <p><a href="https://github.com/ngustavo7110/Escuela-4068/blob/main/Robotica-Educ/Proyecto-Sistema-Riego/Sistema-Riego-Simple-mejorado.ino" target="_blank" rel="noopener">Sistema-Riego-Simple-mejorado.ino</a></p>
+          <h4>Ver Proyecto en pdf</h4>
+          <p><a href="https://github.com/ngustavo7110/Escuela-4068/blob/main/Robotica-Educ/Proyecto-Sistema-Riego/Proyecto%20Sistema%20de%20Riego.pdf" target="_blank" rel="noopener">Proyecto Sistema de Riego.pdf</a></p>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <section id="manuales">
+    <h2>Manuales y Documentos</h2>
+    <p class="intro">Material para descargar. Guarda los archivos en la carpeta <code>docs</code> del repositorio.</p>
+    <ul class="docs">
+      <li>
+        <a href="docs/manual-arduino-uno.pdf">Manual de Arduino Uno</a>
+        <span>Partes de la placa, pines y primeros pasos con el IDE.</span>
+        <em class="tipo">PDF</em>
+      </li>
+      <li>
+        <a href="docs/guia-proyectos.pdf">Guía de proyectos</a>
+        <span>Esquemas de conexión y códigos de cada proyecto.</span>
+        <em class="tipo">PDF</em>
+      </li>
+      <li>
+        <a href="docs/guia-robotica-educativa.pdf">Guía de Robótica Educativa</a>
+        <span>Armado de los robots paso a paso.</span>
+        <em class="tipo">PDF</em>
+      </li>
+      <li>
+        <a href="docs/hoja-de-evaluacion.docx">Hoja de evaluación</a>
+        <span>Planilla para registrar el avance de cada grupo.</span>
+        <em class="tipo">DOCX</em>
+      </li>
+    </ul>
+  </section>
+  <section id="otros">
+    <h2>Otros Proyectos Arduino</h2>
+    <p class="intro">Pruebas y ejercicios con Arduino Uno. Toca un apartado para ver su contenido.</p>
+    <div class="proyectos">
+
+      <details>
+        <summary>
+          <h3>Led con Pulsador</h3>
+        </summary>
+        <div class="cuerpo">
+          <p>Código y archivos en preparación.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <h3>Led Parpadeante</h3>
+        </summary>
+        <div class="cuerpo">
+          <p>Código y archivos en preparación.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <h3>Prueba Led-RGB</h3>
+        </summary>
+        <div class="cuerpo">
+          <p>Código y archivos en preparación.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <h3>Prueba Puente H</h3>
+        </summary>
+        <div class="cuerpo">
+          <p>Código y archivos en preparación.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <h3>Prueba Servo-Joystick</h3>
+        </summary>
+        <div class="cuerpo">
+          <p>Código y archivos en preparación.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <h3>Prueba Servo-Potenciometro</h3>
+        </summary>
+        <div class="cuerpo">
+          <p>Código y archivos en preparación.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <h3>Prueba Ultrasonido</h3>
+        </summary>
+        <div class="cuerpo">
+          <p>Código y archivos en preparación.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <h3>Prueba Motor-Bluetooth</h3>
+        </summary>
+        <div class="cuerpo">
+          <p>Código y archivos en preparación.</p>
+        </div>
+      </details>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Escuela 4068 · Proyectos con Arduino Uno</div>
+</footer>
+
+<script>
+(function () {
+  var led = document.getElementById('led');
+  var estado = document.getElementById('estado');
+  var boton = document.getElementById('toggle');
+  var timer = null, encendido = false;
+
+  function paso() {
+    encendido = !encendido;
+    led.classList.toggle('on', encendido);
+    estado.textContent = encendido ? 'HIGH' : 'LOW';
+  }
+  function iniciar() { timer = setInterval(paso, 1000); boton.textContent = 'Pausar'; }
+  function pausar() { clearInterval(timer); timer = null; boton.textContent = 'Reanudar'; }
+
+  boton.addEventListener('click', function () { timer ? pausar() : iniciar(); });
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { pausar(); } else { iniciar(); }
+})();
+</script>
+</body>
+</html>

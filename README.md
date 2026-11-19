@@ -13,5 +13,5 @@ Además funciona como repo de backup de mis archivos y carpetas personales
 - C++, SQL, Java, Phython
 
 ## Web
-https://ngustavo7110.github.io/Escuela-4068/
-http://atilioanastasi.edu.ar
+- https://ngustavo7110.github.io/Escuela-4068/
+- http://atilioanastasi.edu.ar

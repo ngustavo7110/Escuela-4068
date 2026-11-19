@@ -12,5 +12,6 @@ Además funciona como repo de backup de mis archivos y carpetas personales
 - Arduino Uno
 - C++, SQL, Java, Phython
 
-## Licencia
-Este proyecto está bajo la licencia MIT.
+## Web
+https://ngustavo7110.github.io/Escuela-4068/
+http://atilioanastasi.edu.ar

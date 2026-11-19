@@ -9,7 +9,7 @@ Además funciona como repo de backup de mis archivos y carpetas personales
 
 ## Tecnologías utilizadas
 - Arduino Uno
-- C++, SQL
+- C++, SQL, Java, Phython
 
 ## Licencia
 Este proyecto está bajo la licencia MIT.

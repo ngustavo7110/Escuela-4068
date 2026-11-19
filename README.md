@@ -1,4 +1,4 @@
-# Repositorio personal de Gustavo Nuñez
+# Repositorio Escolar de Gustavo Nuñez
 
 El Proyecto está orientado a la creación, mantenimiento y difusión de tecnologías educativas
 para la Escuela Secundaria. 
